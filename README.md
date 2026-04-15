@@ -13,4 +13,4 @@ Ejecutar:
 ```bash
 Ejecutar: python3 app.py
 
-Luego abra en el navegador: http://127.0.0.1:5000
+Luego abra en el navegador: http://192.168.30.145:5000
