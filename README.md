@@ -1,51 +1,14 @@
 # Fundación Patitas Seguras
 
-Aplicación web desarrollada con Flask para la gestión de adopciones de mascotas.
+Plataforma web académica orientada a la gestión de adopción responsable de mascotas, creada para organizar solicitudes, administrar registros y facilitar el seguimiento de cada proceso dentro de un entorno funcional, claro y estructurado.
 
-## Funcionalidades
-- Inicio de sesión
-- Manejo de sesiones
-- Registro de usuarios adoptantes
-- Visualización de mascotas disponibles
-- Formulario de adopción
-- Gestión de solicitudes por parte del administrador
-- Cambio automático de estado de mascota a Adoptado
-- Eliminación de solicitudes antiguas por parte del administrador
+## Descripción general
 
-## Tecnologías usadas
-- Python
-- Flask
-- SQLite
-- HTML
-- CSS
-
-## Credenciales de prueba
-
-### Administrador
-- Correo: admin@patitasseguras.com
-- Contraseña: Admin123!
-
-### Adoptante
-- Correo: adoptante@patitasseguras.com
-- Contraseña: Adopt123!
-
-## Archivos principales
-- app.py
-- insertar_animales.py
-- insertar_usuarios.py
-- patitas_seguras.db
+Fundación Patitas Seguras es una aplicación web desarrollada con fines académicos para centralizar la información relacionada con mascotas disponibles, solicitudes de adopción y control administrativo del proceso. Su propósito es ofrecer una solución práctica para la gestión básica de adopciones, permitiendo una mejor organización de los datos y una interacción más ordenada entre usuarios y administrador.
 
 ## Ejecución local
+
 Ejecutar:
+
+```bash
 python3 app.py
-
-Luego abrir en el navegador:
-http://127.0.0.1:5000
-
-## Estructura del proyecto
-- templates/ : vistas HTML
-- static/ : imágenes y recursos estáticos
-- patitas_seguras.db : base de datos SQLite
-
-## Nota
-Proyecto académico para evaluación final de Pruebas Estáticas y Dinámicas de Seguridad a Aplicaciones (SAST/DAST).
