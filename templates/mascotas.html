@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mascotas para adopción - Fundación Patitas Seguras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    :root{
+      --bg:#f6f1e8;
+      --white:#ffffff;
+      --text:#222222;
+      --muted:#666666;
+      --primary:#d2a14a;
+      --primary-dark:#b8862d;
+      --shadow:0 15px 35px rgba(0,0,0,.10);
+    }
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    .container{
+      width:min(1280px,95%);
+      margin:auto;
+    }
+
+    .navbar{
+      width:100%;
+      padding:20px 0;
+      background:#a9a39c;
+      border-bottom:1px solid rgba(255,255,255,.15);
+    }
+
+    .nav-content{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .brand img{
+      width:150px;
+      height:auto;
+      display:block;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:28px;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      color:#fff;
+      font-size:1rem;
+      font-weight:500;
+    }
+
+    .login-btn{
+      background:var(--primary);
+      color:#fff !important;
+      padding:12px 20px;
+      border-radius:999px;
+      font-weight:600;
+    }
+
+    section{
+      padding:70px 0 100px;
+      min-height:calc(100vh - 100px);
+    }
+
+    .section-header{
+      margin-bottom:30px;
+    }
+
+    .section-header h2{
+      font-size:clamp(2.5rem,5vw,4rem);
+      margin-bottom:12px;
+      color:#252525;
+    }
+
+    .section-header p{
+      color:var(--muted);
+      line-height:2;
+      max-width:900px;
+      font-size:1.05rem;
+    }
+
+    .pets-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:22px;
+    }
+
+    .pet-card{
+      background:var(--white);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      transition:.25s ease;
+    }
+
+    .pet-card:hover{
+      transform:translateY(-6px);
+    }
+
+    .pet-card img{
+      width:100%;
+      height:300px;
+      object-fit:cover;
+    }
+
+    .pet-body{
+      padding:18px 18px 20px;
+    }
+
+    .pet-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:12px;
+    }
+
+    .pet-top h3{
+      font-size:1.1rem;
+    }
+
+    .tag{
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:.85rem;
+      font-weight:600;
+      white-space:nowrap;
+    }
+
+    .tag-disponible{
+      background:#f7ead1;
+      color:#9b732a;
+    }
+
+    .tag-adoptado{
+      background:#dff5e3;
+      color:#1f7a35;
+    }
+
+    .tag-rechazado{
+      background:#fde2e2;
+      color:#a12d2d;
+    }
+
+    .pet-body p{
+      color:var(--muted);
+      line-height:1.8;
+      margin-bottom:14px;
+      min-height:86px;
+    }
+
+    .pet-info{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .pet-info span{
+      font-size:.82rem;
+      background:#f3ede3;
+      padding:8px 11px;
+      border-radius:999px;
+    }
+
+    @media (max-width:1100px){
+      .pets-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+    @media (max-width:768px){
+      .nav-content{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .nav-links{
+        gap:14px;
+      }
+
+      .pets-grid{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-content">
+      <div class="brand">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Fundación Patitas Seguras">
+      </div>
+
+      <div class="nav-links">
+        <a href="/">Inicio</a>
+        <a href="/historia">Nuestra historia</a>
+        <a href="/mascotas">Mascotas</a>
+        <a href="/formularios">Formularios</a>
+        <a href="/solicitudes">Solicitudes</a>
+
+        {% if session.get('usuario_id') %}
+          <a href="/logout" class="login-btn">Cerrar sesión</a>
+        {% else %}
+          <a href="/login" class="login-btn">Iniciar sesión</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <h2>Mascotas disponibles para adopción</h2>
+        <p>
+          Conoce algunas de nuestras mascotas rescatadas que esperan una oportunidad
+          para formar parte de un hogar responsable y lleno de cariño.
+        </p>
+      </div>
+
+      <div class="pets-grid">
+        {% for mascota in mascotas %}
+        <article class="pet-card">
+          <img src="{{ url_for('static', filename='img/' + mascota.foto) }}" alt="{{ mascota.nombre }}">
+
+          <div class="pet-body">
+            <div class="pet-top">
+              <h3>{{ mascota.nombre }}</h3>
+
+              <span class="tag {% if mascota.estado_adopcion == 'Adoptado' %}tag-adoptado{% elif mascota.estado_adopcion == 'Rechazada' %}tag-rechazado{% else %}tag-disponible{% endif %}">
+                {{ mascota.estado_adopcion }}
+              </span>
+            </div>
+
+            <p>{{ mascota.descripcion }}</p>
+
+            <div class="pet-info">
+              <span>{{ mascota.especie }}</span>
+              <span>{{ mascota.edad }} año{% if mascota.edad != 1 %}s{% endif %}</span>
+              <span>{{ mascota.estado_salud }}</span>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

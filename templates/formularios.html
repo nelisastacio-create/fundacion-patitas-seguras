@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de adopción - Fundación Patitas Seguras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    :root{
+      --bg:#f6f1e8;
+      --white:#ffffff;
+      --text:#222222;
+      --muted:#666666;
+      --primary:#d2a14a;
+      --primary-dark:#b8862d;
+      --line:#eadfcd;
+      --shadow:0 15px 35px rgba(0,0,0,.10);
+    }
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .container{
+      width:min(1280px,95%);
+      margin:auto;
+    }
+
+    .navbar{
+      width:100%;
+      padding:20px 0;
+      background:#a9a39c;
+      border-bottom:1px solid rgba(255,255,255,.15);
+    }
+
+    .nav-content{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      color:#fff;
+      font-weight:700;
+    }
+
+    .brand img{
+      width:150px;
+      height:auto;
+      object-fit:contain;
+      display:block;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:28px;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      color:#fff;
+      font-size:1rem;
+      font-weight:500;
+      transition:.2s ease;
+    }
+
+    .nav-links a:hover{
+      color:#ffd892;
+    }
+
+    .login-btn{
+      background:var(--primary);
+      color:#fff !important;
+      padding:12px 20px;
+      border-radius:999px;
+      font-weight:600;
+    }
+
+    .login-btn:hover{
+      background:var(--primary-dark);
+    }
+
+    section{
+      padding:70px 0 100px;
+      min-height:calc(100vh - 100px);
+    }
+
+    .section-header{
+      margin-bottom:28px;
+    }
+
+    .section-header h2{
+      font-size:clamp(2.6rem,5vw,4.2rem);
+      margin-bottom:12px;
+      color:#252525;
+    }
+
+    .section-header p{
+      color:var(--muted);
+      line-height:2;
+      max-width:900px;
+      font-size:1.05rem;
+    }
+
+    .info-box{
+      background:#fff6e7;
+      border:1px solid #f0dfbe;
+      color:#7a5d2b;
+      border-radius:18px;
+      padding:18px 20px;
+      margin-bottom:24px;
+      line-height:1.8;
+      font-size:.98rem;
+    }
+
+    .form-card{
+      background:var(--white);
+      border-radius:30px;
+      box-shadow:var(--shadow);
+      padding:40px;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:20px;
+      margin-top:16px;
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .field.full{
+      grid-column:1 / -1;
+    }
+
+    .field label{
+      font-weight:600;
+      font-size:.96rem;
+      color:#2c2c2c;
+    }
+
+    .field input,
+    .field select,
+    .field textarea{
+      border:1px solid #eadfcd;
+      background:#fffdf9;
+      border-radius:16px;
+      padding:15px 16px;
+      font-size:.96rem;
+      outline:none;
+      transition:.2s ease;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus{
+      border-color:var(--primary);
+      box-shadow:0 0 0 4px rgba(210,161,74,.12);
+    }
+
+    textarea{
+      resize:vertical;
+      min-height:130px;
+    }
+
+    .checkbox-row{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .submit-btn{
+      display:inline-block;
+      padding:14px 24px;
+      border-radius:999px;
+      border:none;
+      background:var(--primary);
+      color:white;
+      font-weight:600;
+      cursor:pointer;
+      transition:.2s ease;
+      font-size:1rem;
+    }
+
+    .submit-btn:hover{
+      background:var(--primary-dark);
+    }
+
+    @media (max-width:900px){
+      .form-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:768px){
+      .nav-content{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .nav-links{
+        gap:14px;
+      }
+
+      .form-card{
+        padding:26px;
+      }
+
+      .section-header h2{
+        font-size:2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-content">
+      <div class="brand">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Fundación Patitas Seguras">
+      </div>
+
+      <div class="nav-links">
+        <a href="/">Inicio</a>
+        <a href="/historia">Nuestra historia</a>
+        <a href="/mascotas">Mascotas</a>
+        <a href="/formularios">Formularios</a>
+        <a href="/solicitudes">Solicitudes</a>
+
+        {% if session.get('usuario_id') %}
+          <a href="/logout" class="login-btn">Cerrar sesión</a>
+        {% else %}
+          <a href="/login" class="login-btn">Iniciar sesión</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <h2>Formulario de solicitud de adopción</h2>
+        <p>
+          Completa la información solicitada para iniciar el proceso de adopción responsable.
+          Esta sección está disponible para usuarios autenticados dentro del sistema.
+        </p>
+      </div>
+
+      <div class="info-box">
+        Completa los campos obligatorios para registrar tu solicitud. Luego podrás ver su estado en la sección de solicitudes.
+      </div>
+
+      {% if mensaje %}
+      <div class="info-box" style="background:#fdeaea;color:#9f2e2e;border:1px solid #f4c4c4;">
+        {{ mensaje }}
+      </div>
+      {% endif %}
+
+      <div class="form-card">
+        <form method="POST" action="/formularios" class="form-grid">
+
+          <div class="field">
+            <label for="fecha">Fecha</label>
+            <input type="date" id="fecha" name="fecha"
+              oninvalid="this.setCustomValidity('Por favor, selecciona una fecha.')"
+              oninput="this.setCustomValidity('')">
+          </div>
+
+          <div class="field">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre"
+              oninvalid="this.setCustomValidity('Por favor, escribe tu nombre.')"
+              oninput="this.setCustomValidity('')">
+          </div>
+
+          <div class="field">
+            <label for="apellido">Apellido</label>
+            <input type="text" id="apellido" name="apellido" placeholder="Tu apellido"
+              oninvalid="this.setCustomValidity('Por favor, escribe tu apellido.')"
+              oninput="this.setCustomValidity('')">
+          </div>
+
+          <div class="field">
+            <label for="cedula">Cédula</label>
+            <input type="text" id="cedula" name="cedula" placeholder="000-0000000-0"
+              oninvalid="this.setCustomValidity('Por favor, escribe tu cédula.')"
+              oninput="this.setCustomValidity('')">
+          </div>
+
+          <div class="field">
+            <label for="correo">Correo electrónico</label>
+            <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com"
+              oninvalid="this.setCustomValidity('Por favor, escribe un correo válido.')"
+              oninput="this.setCustomValidity('')">
+          </div>
+
+          <div class="field">
+            <label for="telefono">Teléfono</label>
+            <input type="text" id="telefono" name="telefono" placeholder="809-000-0000" required
+              oninvalid="this.setCustomValidity('Por favor, completa el teléfono.')"
+              oninput="this.setCustomValidity('')">
+          </div>
+
+          <div class="field">
+            <label for="direccion">Dirección</label>
+            <input type="text" id="direccion" name="direccion" placeholder="Escribe tu dirección" required
+              oninvalid="this.setCustomValidity('Por favor, completa la dirección.')"
+              oninput="this.setCustomValidity('')">
+          </div>
+
+          <div class="field">
+            <label for="mascota">Mascota que desea adoptar</label>
+            <select id="mascota" name="mascota" required
+              oninvalid="this.setCustomValidity('Por favor, selecciona una mascota.')"
+              oninput="this.setCustomValidity('')">
+              <option value="">Seleccione una mascota</option>
+              <option>Luna</option>
+              <option>Milo</option>
+              <option>Nina</option>
+              <option>Canela</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="tipo_vivienda">Tipo de vivienda</label>
+            <select id="tipo_vivienda" name="tipo_vivienda">
+              <option value="">Seleccione</option>
+              <option>Casa</option>
+              <option>Apartamento</option>
+              <option>Otro</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="experiencia">Experiencia previa con mascotas</label>
+            <textarea id="experiencia" name="experiencia" placeholder="Describe brevemente tu experiencia con mascotas" required
+              oninvalid="this.setCustomValidity('Por favor, describe tu experiencia con mascotas.')"
+              oninput="this.setCustomValidity('')"></textarea>
+          </div>
+
+          <div class="field full">
+            <label for="motivo">Motivo de adopción</label>
+            <textarea id="motivo" name="motivo" placeholder="Explica por qué deseas adoptar esta mascota" required
+              oninvalid="this.setCustomValidity('Por favor, explica el motivo de adopción.')"
+              oninput="this.setCustomValidity('')"></textarea>
+          </div>
+
+          <div class="field full">
+            <label class="checkbox-row">
+              <input type="checkbox" id="confirmacion" name="confirmacion" required
+                oninvalid="this.setCustomValidity('Debes confirmar la información antes de enviar la solicitud.')"
+                oninput="this.setCustomValidity('')">
+              Confirmo que la información suministrada es correcta y asumo el compromiso de cuidado responsable.
+            </label>
+          </div>
+
+          <div class="field full">
+            <button type="submit" class="submit-btn">Enviar solicitud</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

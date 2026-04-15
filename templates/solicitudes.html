@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitudes - Fundación Patitas Seguras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    :root{
+      --bg:#f6f1e8;
+      --white:#ffffff;
+      --text:#222222;
+      --muted:#666666;
+      --primary:#d2a14a;
+      --primary-dark:#b8862d;
+      --danger:#b84a4a;
+      --danger-dark:#993737;
+      --success:#2f8f46;
+      --success-dark:#256f37;
+      --dark:#333333;
+      --dark-hover:#1f1f1f;
+      --shadow:0 15px 35px rgba(0,0,0,.10);
+    }
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .container{
+      width:min(1280px,95%);
+      margin:auto;
+    }
+
+    .navbar{
+      width:100%;
+      padding:20px 0;
+      background:#a9a39c;
+      border-bottom:1px solid rgba(255,255,255,.15);
+    }
+
+    .nav-content{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .brand img{
+      width:150px;
+      height:auto;
+      display:block;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:28px;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      color:#fff;
+      font-size:1rem;
+      font-weight:500;
+    }
+
+    .login-btn{
+      background:var(--primary);
+      color:#fff !important;
+      padding:12px 20px;
+      border-radius:999px;
+      font-weight:600;
+    }
+
+    section{
+      padding:70px 0 100px;
+      min-height:calc(100vh - 100px);
+    }
+
+    .section-header{
+      margin-bottom:30px;
+    }
+
+    .section-header h2{
+      font-size:clamp(2.5rem,5vw,4rem);
+      margin-bottom:12px;
+      color:#252525;
+    }
+
+    .section-header p{
+      color:var(--muted);
+      line-height:2;
+      max-width:900px;
+      font-size:1.05rem;
+    }
+
+    .sol-list{
+      display:grid;
+      gap:20px;
+    }
+
+    .sol-item{
+      background:#fff;
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      padding:24px;
+    }
+
+    .sol-item strong{
+      display:block;
+      margin-bottom:8px;
+      font-size:1.1rem;
+      color:#252525;
+    }
+
+    .sol-item p{
+      margin-bottom:8px;
+      color:var(--muted);
+      line-height:1.8;
+    }
+
+    .status{
+      display:inline-block;
+      margin-top:10px;
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:.85rem;
+      font-weight:600;
+    }
+
+    .status-pendiente{
+      background:#f7ead1;
+      color:#9b732a;
+    }
+
+    .status-adoptado{
+      background:#dff5e3;
+      color:#1f7a35;
+    }
+
+    .status-rechazada{
+      background:#fde2e2;
+      color:#a12d2d;
+    }
+
+    .acciones{
+      margin-top:16px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .acciones form{
+      margin:0;
+    }
+
+    .btn-accion{
+      border:none;
+      border-radius:999px;
+      padding:10px 18px;
+      font-weight:600;
+      cursor:pointer;
+      color:#fff;
+    }
+
+    .btn-aceptar{
+      background:var(--primary);
+    }
+
+    .btn-aceptar:hover{
+      background:var(--primary-dark);
+    }
+
+    .btn-rechazar{
+      background:var(--danger);
+    }
+
+    .btn-rechazar:hover{
+      background:var(--danger-dark);
+    }
+
+    .btn-eliminar{
+      background:var(--dark);
+    }
+
+    .btn-eliminar:hover{
+      background:var(--dark-hover);
+    }
+
+    @media (max-width:768px){
+      .nav-content{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .nav-links{
+        gap:14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-content">
+      <div class="brand">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Fundación Patitas Seguras">
+      </div>
+
+      <div class="nav-links">
+        <a href="/">Inicio</a>
+        <a href="/historia">Nuestra historia</a>
+        <a href="/mascotas">Mascotas</a>
+        <a href="/formularios">Formularios</a>
+        <a href="/solicitudes">Solicitudes</a>
+
+        {% if session.get('usuario_id') %}
+          <a href="/logout" class="login-btn">Cerrar sesión</a>
+        {% else %}
+          <a href="/login" class="login-btn">Iniciar sesión</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <h2>Solicitudes de adopción</h2>
+
+        {% if session.get('usuario_rol') == 'Administrador' %}
+          <p>Aquí puedes visualizar todas las solicitudes registradas y gestionar su estado.</p>
+        {% else %}
+          <p>Aquí puedes visualizar únicamente tus solicitudes y el estado actual de cada una.</p>
+        {% endif %}
+      </div>
+
+      <div class="sol-list">
+        {% for s in solicitudes %}
+        <div class="sol-item">
+          <strong>{{ s.numero_solicitud }} — {{ s.animal_nombre }}</strong>
+
+          {% if session.get('usuario_rol') == 'Administrador' %}
+            <p><strong>Solicitante:</strong> {{ s.usuario_nombre }}</p>
+            <p><strong>Teléfono:</strong> {{ s.telefono }}</p>
+            <p><strong>Dirección:</strong> {{ s.direccion }}</p>
+            <p><strong>Motivo:</strong> {{ s.motivo }}</p>
+            <p><strong>Experiencia:</strong> {{ s.experiencia_mascotas }}</p>
+            <p><strong>Fecha:</strong> {{ s.fecha }}</p>
+
+            <div class="status
+              {% if s.estado == 'Adoptado' %}
+                status-adoptado
+              {% elif s.estado == 'Rechazada' %}
+                status-rechazada
+              {% else %}
+                status-pendiente
+              {% endif %}
+            ">
+              {{ s.estado }}
+            </div>
+
+            <div class="acciones">
+              {% if s.estado == 'Pendiente' %}
+                <form method="POST" action="{{ url_for('actualizar_solicitud', solicitud_id=s.id, accion='aceptar') }}">
+                  <button type="submit" class="btn-accion btn-aceptar">Aceptar</button>
+                </form>
+
+                <form method="POST" action="{{ url_for('actualizar_solicitud', solicitud_id=s.id, accion='rechazar') }}">
+                  <button type="submit" class="btn-accion btn-rechazar">Rechazar</button>
+                </form>
+              {% endif %}
+
+              {% if s.estado == 'Adoptado' or s.estado == 'Rechazada' %}
+                <form method="POST" action="{{ url_for('eliminar_solicitud', solicitud_id=s.id) }}" onsubmit="return confirm('¿Seguro que deseas eliminar esta solicitud?');">
+                  <button type="submit" class="btn-accion btn-eliminar">Eliminar</button>
+                </form>
+              {% endif %}
+            </div>
+          {% else %}
+            <p><strong>Mascota:</strong> {{ s.animal_nombre }}</p>
+            <p><strong>Fecha:</strong> {{ s.fecha }}</p>
+            <p><strong>Teléfono:</strong> {{ s.telefono }}</p>
+            <p><strong>Dirección:</strong> {{ s.direccion }}</p>
+
+            <div class="status
+              {% if s.estado == 'Adoptado' %}
+                status-adoptado
+              {% elif s.estado == 'Rechazada' %}
+                status-rechazada
+              {% else %}
+                status-pendiente
+              {% endif %}
+            ">
+              {{ s.estado }}
+            </div>
+          {% endif %}
+        </div>
+        {% else %}
+        <div class="sol-item">
+          <p>No hay solicitudes registradas todavía.</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

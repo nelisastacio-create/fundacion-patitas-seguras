@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fundación Patitas Seguras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    :root{
+      --bg:#f6f1e8;
+      --white:#ffffff;
+      --text:#222222;
+      --muted:#666666;
+      --primary:#d2a14a;
+      --primary-dark:#b8862d;
+      --card:#fffaf2;
+      --soft:#f5e8cf;
+      --line:#eadfcd;
+      --shadow:0 15px 35px rgba(0,0,0,.10);
+      --radius:24px;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    .container{
+      width:min(1180px,92%);
+      margin:auto;
+    }
+
+    /* ===== HERO / HOME ===== */
+    .hero{
+  min-height:100vh;
+  background:
+    linear-gradient(rgba(0,0,0,.40), rgba(0,0,0,.40)),
+    url("{{ url_for('static', filename='img/hero.png') }}") center/cover no-repeat;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+    }
+
+    .navbar{
+      width:100%;
+      padding:20px 0;
+      background:rgba(255,255,255,.08);
+      backdrop-filter:blur(8px);
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+
+    .nav-content{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .brand{
+  display:flex;
+  align-items:center;
+  color:#fff;
+  font-weight:700;
+}
+
+.brand img{
+  width:150px;
+  height:auto;
+  object-fit:contain;
+  border-radius:0;
+  background:none;
+  padding:0;
+  display:block;
+
+    }
+
+    .brand-text{
+      line-height:1.15;
+      font-size:1.1rem;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:28px;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      color:#fff;
+      font-size:1rem;
+      font-weight:500;
+      transition:.2s ease;
+    }
+
+    .nav-links a:hover{
+      color:#ffd892;
+    }
+
+    .login-btn{
+      background:var(--primary);
+      color:#fff !important;
+      padding:12px 20px;
+      border-radius:999px;
+      font-weight:600;
+    }
+
+    .login-btn:hover{
+      background:var(--primary-dark);
+    }
+
+    .hero-inner{
+      flex:1;
+      display:flex;
+      align-items:center;
+    }
+
+    .hero-text{
+      max-width:760px;
+      color:#fff;
+      padding:60px 0;
+    }
+
+    .hero-badge{
+      display:inline-block;
+      padding:10px 18px;
+      border-radius:999px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.20);
+      color:#fff4dc;
+      font-weight:600;
+      margin-bottom:20px;
+    }
+
+    .hero-text h1{
+      font-size:clamp(2.8rem,6vw,5.2rem);
+      line-height:1.03;
+      margin-bottom:18px;
+      font-weight:800;
+      max-width:720px;
+    }
+
+    .hero-text p{
+      font-size:1.08rem;
+      line-height:1.9;
+      max-width:760px;
+      color:rgba(255,255,255,.94);
+    }
+
+    /* ===== Sections ===== */
+    section{
+      padding:88px 0;
+    }
+
+    .section-header{
+      margin-bottom:30px;
+    }
+
+    .section-header h2{
+      font-size:clamp(2rem,4vw,3.2rem);
+      margin-bottom:10px;
+      color:#252525;
+    }
+
+    .section-header p{
+      color:var(--muted);
+      line-height:1.9;
+      max-width:760px;
+    }
+
+    /* ===== Historia ===== */
+    .history-grid{
+      display:grid;
+      grid-template-columns:0.95fr 1.05fr;
+      gap:28px;
+      align-items:stretch;
+    }
+
+    .history-image,
+    .history-card{
+      border-radius:28px;
+      overflow:hidden;
+      background:var(--white);
+      box-shadow:var(--shadow);
+    }
+
+    .history-image img{
+      width:100%;
+      height:100%;
+      min-height:480px;
+      object-fit:cover;
+    }
+
+    .history-card{
+      padding:34px;
+    }
+
+    .history-card p{
+      color:var(--muted);
+      line-height:1.95;
+      margin-bottom:16px;
+      font-size:1rem;
+    }
+
+    .mini-values{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin-top:20px;
+    }
+
+    .mini-value{
+      background:#fff6e7;
+      padding:18px;
+      border-radius:18px;
+    }
+
+    .mini-value h4{
+      margin-bottom:8px;
+      font-size:1rem;
+      color:#222;
+    }
+
+    .mini-value p{
+      margin:0;
+      font-size:.92rem;
+      line-height:1.7;
+    }
+
+    /* ===== Mascotas ===== */
+    .pets-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:22px;
+    }
+
+    .pet-card{
+      background:var(--white);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      transition:.25s ease;
+    }
+
+    .pet-card:hover{
+      transform:translateY(-6px);
+    }
+
+    .pet-card img{
+      width:100%;
+      height:300px;
+      object-fit:cover;
+    }
+
+    .pet-body{
+      padding:18px 18px 20px;
+    }
+
+    .pet-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:12px;
+    }
+
+    .pet-top h3{
+      font-size:1.1rem;
+    }
+
+    .tag{
+      background:#f7ead1;
+      color:#9b732a;
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:.85rem;
+      font-weight:600;
+      white-space:nowrap;
+    }
+
+    .pet-body p{
+      color:var(--muted);
+      line-height:1.8;
+      margin-bottom:14px;
+      min-height:86px;
+    }
+
+    .pet-info{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .pet-info span{
+      font-size:.82rem;
+      background:#f3ede3;
+      padding:8px 11px;
+      border-radius:999px;
+    }
+
+    /* ===== Formularios ===== */
+    .form-card{
+      background:var(--white);
+      border-radius:30px;
+      box-shadow:var(--shadow);
+      padding:36px;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+      margin-top:16px;
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .field.full{
+      grid-column:1 / -1;
+    }
+
+    .field label{
+      font-weight:600;
+      font-size:.96rem;
+      color:#2c2c2c;
+    }
+
+    .field input,
+    .field select,
+    .field textarea{
+      border:1px solid #eadfcd;
+      background:#fffdf9;
+      border-radius:16px;
+      padding:14px 16px;
+      font-size:.95rem;
+      outline:none;
+      transition:.2s ease;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus{
+      border-color:var(--primary);
+      box-shadow:0 0 0 4px rgba(210,161,74,.12);
+    }
+
+    textarea{
+      resize:vertical;
+      min-height:120px;
+    }
+
+    .checkbox-row{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .submit-btn{
+      display:inline-block;
+      padding:14px 24px;
+      border-radius:999px;
+      border:none;
+      background:var(--primary);
+      color:white;
+      font-weight:600;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+
+    .submit-btn:hover{
+      background:var(--primary-dark);
+    }
+
+    /* ===== Solicitudes ===== */
+    .solicitudes-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+    }
+
+    .sol-card{
+      background:var(--white);
+      border-radius:26px;
+      box-shadow:var(--shadow);
+      padding:28px;
+    }
+
+    .sol-card h3{
+      font-size:1.5rem;
+      margin-bottom:10px;
+    }
+
+    .sol-card p{
+      color:var(--muted);
+      line-height:1.85;
+      margin-bottom:18px;
+    }
+
+    .sol-list{
+      display:grid;
+      gap:14px;
+    }
+
+    .sol-item{
+      background:#fff7ea;
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .sol-item strong{
+      display:block;
+      margin-bottom:6px;
+      color:#2a2a2a;
+    }
+
+    .status{
+      display:inline-block;
+      margin-top:8px;
+      background:#f1e1bc;
+      color:#8e6720;
+      padding:7px 12px;
+      border-radius:999px;
+      font-size:.82rem;
+      font-weight:600;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    .mini-btn{
+      padding:10px 14px;
+      border:none;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:.85rem;
+    }
+
+    .accept{
+      background:#dff3df;
+      color:#1e6e33;
+    }
+
+    .reject{
+      background:#f8dddd;
+      color:#9f2e2e;
+    }
+
+    /* ===== Footer ===== */
+    footer{
+      padding:30px 0 55px;
+    }
+
+    .footer-box{
+      background:#2b2620;
+      color:white;
+      border-radius:28px;
+      padding:30px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .footer-box p{
+      color:#d8cdbd;
+      max-width:700px;
+      line-height:1.8;
+    }
+
+    /* ===== LOGIN OVERLAY ===== */
+    .login-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.55);
+      z-index:9999;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+
+    .login-overlay.active{
+      display:flex;
+    }
+
+    .login-page{
+      width:min(1220px, 100%);
+      min-height:88vh;
+      background:#faf7f0;
+      border-radius:34px;
+      overflow:hidden;
+      box-shadow:0 25px 60px rgba(0,0,0,.25);
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+    }
+
+    .login-left{
+      position:relative;
+      background:
+        linear-gradient(rgba(0,0,0,.30), rgba(0,0,0,.30)),
+        url("{{ url_for('static', filename='img/login.jpg') }}") center/cover no-repeat;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:50px;
+    }
+
+    .overlay-card{
+      width:min(620px,95%);
+      color:white;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.16);
+      backdrop-filter:blur(10px);
+      border-radius:32px;
+      padding:32px;
+      box-shadow:var(--shadow);
+    }
+
+    .login-brand{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      margin-bottom:28px;
+    }
+
+   .login-brand img{
+  width:110px;
+  height:auto;
+  object-fit:contain;
+  border-radius:0;
+  background:none;
+  padding:0;
+  display:block;
+    }
+
+    .login-brand-text{
+      line-height:1.15;
+    }
+
+    .login-brand-text small{
+      display:block;
+      font-size:.9rem;
+      font-weight:500;
+      opacity:.9;
+      margin-bottom:4px;
+    }
+
+    .login-brand-text strong{
+      font-size:1.6rem;
+      font-weight:800;
+    }
+
+    .overlay-card h1{
+      font-size:clamp(2rem,4vw,3.5rem);
+      line-height:1.05;
+      margin-bottom:18px;
+      font-weight:800;
+      max-width:520px;
+    }
+
+    .overlay-card p{
+      line-height:1.9;
+      font-size:1rem;
+      color:rgba(255,255,255,.92);
+      max-width:560px;
+    }
+
+    .login-right{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px 24px;
+      background:#faf7f0;
+      position:relative;
+    }
+
+    .close-login{
+      position:absolute;
+      top:18px;
+      right:18px;
+      width:44px;
+      height:44px;
+      border:none;
+      border-radius:50%;
+      background:#fff;
+      box-shadow:var(--shadow);
+      cursor:pointer;
+      font-size:1.2rem;
+      font-weight:700;
+    }
+
+    .login-box{
+      width:min(470px,100%);
+      background:var(--white);
+      border-radius:32px;
+      padding:38px 34px;
+      box-shadow:var(--shadow);
+      border:1px solid #f0e7d7;
+    }
+
+    .login-box .mini-logo{
+  width:100px;
+  height:auto;
+  object-fit:contain;
+  display:block;
+  margin:0 auto 18px;
+  border-radius:0;
+  background:none;
+  padding:0;
+    }
+
+    .login-box h2{
+      text-align:center;
+      font-size:2rem;
+      margin-bottom:10px;
+    }
+
+    .login-box .subtitle{
+      text-align:center;
+      color:var(--muted);
+      line-height:1.8;
+      margin-bottom:28px;
+      font-size:.96rem;
+    }
+
+    .form-group{
+      margin-bottom:16px;
+    }
+
+    .form-group label{
+      display:block;
+      margin-bottom:8px;
+      font-weight:600;
+      font-size:.95rem;
+    }
+
+    .form-group input{
+      width:100%;
+      border:1px solid var(--line);
+      background:#fffdf9;
+      border-radius:16px;
+      padding:15px 16px;
+      font-size:.96rem;
+      outline:none;
+      transition:.2s ease;
+    }
+
+    .form-group input:focus{
+      border-color:var(--primary);
+      box-shadow:0 0 0 4px rgba(210,161,74,.12);
+    }
+
+    .btn{
+      width:100%;
+      border:none;
+      border-radius:999px;
+      padding:15px 18px;
+      font-size:1rem;
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+
+    .btn-primary{
+      background:var(--primary);
+      color:white;
+      margin-top:8px;
+    }
+
+    .btn-primary:hover{
+      background:var(--primary-dark);
+    }
+
+    .extra-links{
+      margin-top:18px;
+      text-align:center;
+      color:var(--muted);
+      font-size:.95rem;
+      line-height:1.8;
+    }
+
+    .extra-links a{
+      color:var(--primary-dark);
+      font-weight:700;
+    }
+
+    .demo-box{
+      margin-top:24px;
+      background:#fff8ea;
+      border:1px solid #f2dfb8;
+      border-radius:20px;
+      padding:18px;
+    }
+
+    .demo-box h3{
+      font-size:1rem;
+      margin-bottom:10px;
+      color:#7b5a22;
+    }
+
+    .demo-box p{
+      font-size:.92rem;
+      line-height:1.8;
+      color:#6a6a6a;
+      margin-bottom:6px;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width:1100px){
+      .history-grid,
+      .solicitudes-grid{
+        grid-template-columns:1fr;
+      }
+
+      .pets-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .login-page{
+        grid-template-columns:1fr;
+      }
+
+      .login-left{
+        min-height:42vh;
+      }
+    }
+
+    @media (max-width:768px){
+      .nav-content{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .nav-links{
+        gap:14px;
+      }
+
+      .pets-grid,
+      .form-grid,
+      .mini-values{
+        grid-template-columns:1fr;
+      }
+
+      .hero-text h1{
+        max-width:100%;
+      }
+
+      .brand img{
+        width:62px;
+        height:62px;
+      }
+    }
+
+    @media (max-width:560px){
+      .pets-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero-text p{
+        font-size:1rem;
+      }
+
+      .overlay-card{
+        padding:24px;
+      }
+
+      .login-box{
+        padding:28px 22px;
+      }
+
+      .login-brand img{
+        width:72px;
+        height:72px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HOME -->
+  <header class="hero" id="inicio">
+    <nav class="navbar">
+      <div class="container nav-content">
+        
+     <div class="brand">
+  <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Fundación Patitas Seguras">
+</div>
+
+       <div class="nav-links">
+  <a href="/">Inicio</a>
+  <a href="/historia">Nuestra historia</a>
+  <a href="/mascotas">Mascotas</a>
+  <a href="/formularios">Formularios</a>
+  <a href="/solicitudes">Solicitudes</a>
+
+  {% if session.get('usuario_id') %}
+    <a href="/logout" class="login-btn">Cerrar sesión</a>
+  {% else %}
+    <a href="/login" class="login-btn">Iniciar sesión</a>
+  {% endif %}
+</div>
+    </nav>
+
+    <div class="hero-inner">
+      <div class="container">
+        <div class="hero-text">
+          <span class="hero-badge">Fundación protectora de animales</span>
+          <h1>Protegiendo huellas,<br>transformando vidas.</h1>
+          <p>
+            Fundación Patitas Seguras es una plataforma pensada para apoyar el rescate,
+            cuidado y adopción responsable de perros y gatos. Nuestro objetivo es organizar
+            digitalmente la información de cada mascota y facilitar el proceso de adopción
+            con una experiencia clara, humana y visual.
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HISTORIA -->
+  <section id="historia">
+    <div class="container">
+      <div class="section-header">
+        <h2>Nuestra historia</h2>
+        <p>
+          Fundación Patitas Seguras nace con el propósito de brindar una segunda oportunidad
+          a perros y gatos que necesitan protección, cuidado y un nuevo hogar.
+        </p>
+      </div>
+
+      <div class="history-grid">
+        <div class="history-image">
+          <img src="{{ url_for('static', filename='img/historia.jpg') }}" alt="Historia de la fundación">
+        </div>
+
+        <div class="history-card">
+          <p>
+            Nuestro proyecto busca ayudar a refugios pequeños a organizar la información de sus mascotas,
+            registrar sus condiciones de salud, mostrar sus perfiles de adopción y mantener un control
+            más claro sobre las solicitudes recibidas.
+          </p>
+          <p>
+            Con una plataforma sencilla, visual y funcional, Fundación Patitas Seguras quiere hacer
+            que el proceso de adopción sea más humano, transparente y fácil de gestionar.
+          </p>
+
+          <div class="mini-values">
+            <div class="mini-value">
+              <h4>Misión</h4>
+              <p>Proteger, cuidar y facilitar adopciones responsables con apoyo digital.</p>
+            </div>
+            <div class="mini-value">
+              <h4>Visión</h4>
+              <p>Ser una plataforma confiable para la gestión moderna de refugios animales.</p>
+            </div>
+            <div class="mini-value">
+              <h4>Valores</h4>
+              <p>Empatía, responsabilidad, compromiso y respeto por la vida animal.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MASCOTAS -->
+  <section id="mascotas">
+    <div class="container">
+      <div class="section-header">
+        <h2>Mascotas disponibles para adopción</h2>
+      </div>
+
+     <div class="pets-grid">
+  <article class="pet-card">
+    <img src="{{ url_for('static', filename='img/luna.jpg') }}" alt="Luna">
+    <div class="pet-body">
+      <div class="pet-top">
+        <h3>Luna</h3>
+        <span class="tag">Disponible</span>
+      </div>
+      <p>Perrita cariñosa y juguetona. Ideal para hogares que buscan una compañera activa.</p>
+      <div class="pet-info">
+        <span>Perro</span>
+        <span>2 años</span>
+        <span>Sana</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="pet-card">
+    <img src="{{ url_for('static', filename='img/milo.jpg') }}" alt="Milo">
+    <div class="pet-body">
+      <div class="pet-top">
+        <h3>Milo</h3>
+        <span class="tag">Disponible</span>
+      </div>
+      <p>Gatito tranquilo, muy dulce y adaptable. Perfecto para ambientes calmados.</p>
+      <div class="pet-info">
+        <span>Gato</span>
+        <span>1 año</span>
+        <span>Sano</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="pet-card">
+    <img src="{{ url_for('static', filename='img/nina.jpg') }}" alt="Nina">
+    <div class="pet-body">
+      <div class="pet-top">
+        <h3>Nina</h3>
+        <span class="tag">En observación</span>
+      </div>
+      <p>Perrita rescatada recientemente. Muy noble, con buen proceso de recuperación.</p>
+      <div class="pet-info">
+        <span>Perro</span>
+        <span>3 años</span>
+        <span>Tratamiento</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="pet-card">
+    <img src="{{ url_for('static', filename='img/canela.jpg') }}" alt="Canela">
+    <div class="pet-body">
+      <div class="pet-top">
+        <h3>Canela</h3>
+        <span class="tag">Disponible</span>
+      </div>
+      <p>Perrita tranquila, noble y muy cariñosa. Ideal para un hogar que le brinde atención y compañía.</p>
+      <div class="pet-info">
+        <span>Perro</span>
+<span>2 años</span>
+<span>Sana</span>
+      </div>
+    </div>
+  </article>
+</div>
+    </div>
+  </section>
+
+  <!-- FORMULARIO -->
+  <section id="formularios">
+    <div class="container">
+      <div class="section-header">
+        <h2>Formulario de solicitud de adopción</h2>
+        <p>
+          Completa la información solicitada para iniciar el proceso de adopción responsable.
+        </p>
+      </div>
+
+      <div class="form-card">
+        <form class="form-grid">
+          <div class="field">
+            <label>Fecha</label>
+            <input type="date">
+          </div>
+
+          <div class="field">
+            <label>Nombre</label>
+            <input type="text" placeholder="Tu nombre">
+          </div>
+
+          <div class="field">
+            <label>Apellido</label>
+            <input type="text" placeholder="Tu apellido">
+          </div>
+
+          <div class="field">
+            <label>Cédula</label>
+            <input type="text" placeholder="000-0000000-0">
+          </div>
+
+          <div class="field">
+            <label>Correo electrónico</label>
+            <input type="email" placeholder="ejemplo@correo.com">
+          </div>
+
+          <div class="field">
+            <label>Teléfono</label>
+            <input type="text" placeholder="809-000-0000">
+          </div>
+
+          <div class="field">
+            <label>Dirección</label>
+            <input type="text" placeholder="Escribe tu dirección">
+          </div>
+
+          <div class="field">
+            <label>Mascota que desea adoptar</label>
+            <select>
+              <option>Seleccione una mascota</option>
+              <option>Luna</option>
+              <option>Milo</option>
+              <option>Nina</option>
+              <option>Canela</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Tipo de vivienda</label>
+            <select>
+              <option>Seleccione</option>
+              <option>Casa</option>
+              <option>Apartamento</option>
+              <option>Otro</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label>Experiencia previa con mascotas</label>
+            <textarea placeholder="Describe brevemente tu experiencia con mascotas"></textarea>
+          </div>
+
+          <div class="field full">
+            <label>Motivo de adopción</label>
+            <textarea placeholder="Explica por qué deseas adoptar esta mascota"></textarea>
+          </div>
+
+          <div class="field full">
+            <label class="checkbox-row">
+              <input type="checkbox">
+              Confirmo que la información suministrada es correcta y asumo el compromiso de cuidado responsable.
+            </label>
+          </div>
+
+          <div class="field full">
+            <button type="button" class="submit-btn">Enviar solicitud</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLICITUDES -->
+  <section id="solicitudes">
+    <div class="container">
+      <div class="section-header">
+        <h2>Solicitudes</h2>
+        <p>
+          En esta sección el administrador podrá revisar todas las solicitudes recibidas.
+          El adoptante solo podrá consultar el estado de su propia solicitud.
+        </p>
+      </div>
+
+      <div class="solicitudes-grid">
+        <div class="sol-card">
+          <h3>Vista del Administrador</h3>
+          <p>
+            El administrador tiene acceso completo a todas las solicitudes y puede revisar,
+            aceptar o rechazar cada caso según la información recibida.
+          </p>
+
+          <div class="sol-list">
+            <div class="sol-item">
+              <strong>Solicitud SOL-0001 — Luna</strong>
+              <span>Solicitante: Carla Martínez</span><br>
+              <span>Estado actual:</span>
+              <div class="status">Pendiente</div>
+              <div class="actions">
+                <button class="mini-btn accept">Aceptar</button>
+                <button class="mini-btn reject">Rechazar</button>
+              </div>
+            </div>
+
+            <div class="sol-item">
+              <strong>Solicitud SOL-0002 — Milo</strong>
+              <span>Solicitante: José Díaz</span><br>
+              <span>Estado actual:</span>
+              <div class="status">Pendiente</div>
+              <div class="actions">
+                <button class="mini-btn accept">Aceptar</button>
+                <button class="mini-btn reject">Rechazar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <h3>Vista del Adoptante</h3>
+          <p>
+            El adoptante solamente podrá revisar el estado de su propia solicitud dentro del sistema.
+          </p>
+
+          <div class="sol-list">
+            <div class="sol-item">
+              <strong>Mi solicitud — Luna</strong>
+              <span>Número: SOL-0001</span><br>
+              <span>Fecha: 14/04/2026</span><br>
+              <span>Estado actual:</span>
+              <div class="status">Pendiente</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-box">
+        <div>
+          <h3>Fundación Patitas Seguras</h3>
+          <p>
+            Plataforma visual e institucional para el registro, seguimiento y adopción responsable
+            de mascotas rescatadas.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- LOGIN EN EL MISMO ARCHIVO -->
+  <div class="login-overlay" id="loginOverlay">
+    <div class="login-page">
+      <div class="login-left">
+        <div class="overlay-card">
+          <div class="login-brand">
+            <img src="logo.png" alt="Logo Fundación Patitas Seguras">
+            <div class="login-brand-text">
+              <small>Acceso institucional</small>
+              <strong>Fundación Patitas Seguras</strong>
+            </div>
+          </div>
+
+          <h1>Protegiendo huellas, transformando vidas.</h1>
+          <p>
+            Fundación Patitas Seguras es una plataforma pensada para apoyar el rescate,
+            cuidado y adopción responsable de perros y gatos. Nuestro objetivo es organizar
+            digitalmente la información de cada mascota y facilitar el proceso de adopción
+            con una experiencia clara, humana y visual.
+          </p>
+        </div>
+      </div>
+
+      <div class="login-right">
+        <button class="close-login" id="closeLogin">✕</button>
+
+        <div class="login-box">
+          <img src="logo.png" alt="Logo Fundación Patitas Seguras" class="mini-logo">
+
+          <h2>Iniciar sesión</h2>
+          <p class="subtitle">
+            Accede al sistema con tu cuenta para consultar o gestionar información de adopciones.
+          </p>
+
+          <form>
+            <div class="form-group">
+              <label for="correo">Correo electrónico</label>
+              <input type="email" id="correo" placeholder="ejemplo@correo.com">
+            </div>
+
+            <div class="form-group">
+              <label for="password">Contraseña</label>
+              <input type="password" id="password" placeholder="••••••••••">
+            </div>
+
+            <button type="button" class="btn btn-primary">Entrar al sistema</button>
+          </form>
+
+          <div class="extra-links">
+            ¿No tienes cuenta? <a href="#">Crear cuenta</a>
+          </div>
+
+          <div class="demo-box">
+            <h3>Credenciales de prueba</h3>
+            <p><strong>Administrador:</strong> admin@patitasseguras.com / Admin123!</p>
+            <p><strong>Adoptante:</strong> adoptante@patitasseguras.com / Adopt123!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const openLoginTop = document.getElementById('openLoginTop');
+    const loginOverlay = document.getElementById('loginOverlay');
+    const closeLogin = document.getElementById('closeLogin');
+
+    openLoginTop.addEventListener('click', function(e){
+      e.preventDefault();
+      loginOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    closeLogin.addEventListener('click', function(){
+      loginOverlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    });
+
+    loginOverlay.addEventListener('click', function(e){
+      if(e.target === loginOverlay){
+        loginOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    });
+  </script>
+</body>
+</html>
