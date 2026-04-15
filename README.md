@@ -11,8 +11,6 @@ Fundación Patitas Seguras es una aplicación web desarrollada con fines académ
 Ejecutar:
 
 ```bash
-python3 app.py
+Ejecutar: python3 app.py
 
-```bash
-
-http://127.0.0.1:5000
+Luego abra en el navegador: http://127.0.0.1:5000
