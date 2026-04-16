@@ -8,14 +8,20 @@ Fundación Patitas Seguras es una aplicación web desarrollada con fines académ
 
 ## Comandos de ejecución
 
-1. Descargar la imagen
-   
+### 1. Descargar la imagen
+
+```bash
 docker pull disneli/fundacion-patitas-seguras:1.0
+```
 
-2 . Ejecutar el contenedor
-   
+### 2. Ejecutar el contenedor
+
+```bash
 docker run -d --name fundacion-patitas-seguras -p 5000:5000 disneli/fundacion-patitas-seguras:1.0
+```
 
-3 . Acceder a la aplicación
-   
+### 3. Acceder a la aplicación
+
+```bash
 http://127.0.0.1:5000
+```
